@@ -1,0 +1,395 @@
+[
+    {
+        "id": "c5ec63d90fc3bf0b",
+        "type": "tab",
+        "label": "banco de dados",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "da137a41ca5e0b6a",
+        "type": "sqlite",
+        "z": "c5ec63d90fc3bf0b",
+        "mydb": "2160131fdde9adad",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "Create Table",
+        "x": 750,
+        "y": 80,
+        "wires": [
+            [
+                "f0c4e5e4a225a0f0"
+            ]
+        ]
+    },
+    {
+        "id": "da2f0f7c1b184d7c",
+        "type": "inject",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "Cria Tabela",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "54938e215ebff726"
+            ]
+        ]
+    },
+    {
+        "id": "f0c4e5e4a225a0f0",
+        "type": "debug",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "54938e215ebff726",
+        "type": "function",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "Cria tabela no banco",
+        "func": "msg.topic = \"CREATE TABLE dados(var01,var02,var03);\"\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 80,
+        "wires": [
+            [
+                "da137a41ca5e0b6a"
+            ]
+        ]
+    },
+    {
+        "id": "1d2bacd90c50780d",
+        "type": "sqlite",
+        "z": "c5ec63d90fc3bf0b",
+        "mydb": "2160131fdde9adad",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "Insere dados",
+        "x": 750,
+        "y": 140,
+        "wires": [
+            [
+                "e5b6f6aa2b5f528a"
+            ]
+        ]
+    },
+    {
+        "id": "73557437cb86f35c",
+        "type": "inject",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "Insere dados",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"var01\":31,\"var02\":32,\"var03\":33}",
+        "payloadType": "json",
+        "x": 290,
+        "y": 140,
+        "wires": [
+            [
+                "4bdb5911e8f9946f"
+            ]
+        ]
+    },
+    {
+        "id": "e5b6f6aa2b5f528a",
+        "type": "debug",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "4bdb5911e8f9946f",
+        "type": "function",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "Insere dados no banco",
+        "func": "var var01, var02, var03\n\nvar01 = msg.payload.var01;\nvar02 = msg.payload.var02;\nvar03 = msg.payload.var03;\nmsg.topic = \"INSERT INTO dados(var01, var02, var03)VALUES(\" + var01 + \", \" + var02 + \", \" + var03 + \")\";\n//msg.topic = \"INSERT INTO dados(var01, var02, var03)VALUES(20, 30, 40)\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 140,
+        "wires": [
+            [
+                "1d2bacd90c50780d"
+            ]
+        ]
+    },
+    {
+        "id": "f68643c72e3f5391",
+        "type": "sqlite",
+        "z": "c5ec63d90fc3bf0b",
+        "mydb": "2160131fdde9adad",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "Seleciona dados",
+        "x": 770,
+        "y": 200,
+        "wires": [
+            [
+                "e1b04d15c06967c8"
+            ]
+        ]
+    },
+    {
+        "id": "743e1e6cb28c396f",
+        "type": "inject",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "Select dados",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 200,
+        "wires": [
+            [
+                "e5dc76d16f39b7bc"
+            ]
+        ]
+    },
+    {
+        "id": "e1b04d15c06967c8",
+        "type": "debug",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e5dc76d16f39b7bc",
+        "type": "function",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "Seleciona dados no banco",
+        "func": "msg.topic = \"SELECT * FROM dados;\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 200,
+        "wires": [
+            [
+                "f68643c72e3f5391"
+            ]
+        ]
+    },
+    {
+        "id": "8ab3fe09fce8694b",
+        "type": "sqlite",
+        "z": "c5ec63d90fc3bf0b",
+        "mydb": "2160131fdde9adad",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "Deleta dados",
+        "x": 750,
+        "y": 260,
+        "wires": [
+            [
+                "07344f6797e9723b"
+            ]
+        ]
+    },
+    {
+        "id": "58be0dbe44b194cd",
+        "type": "inject",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "Cria Tabela",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 260,
+        "wires": [
+            [
+                "0292a9c3380ca6bc"
+            ]
+        ]
+    },
+    {
+        "id": "07344f6797e9723b",
+        "type": "debug",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "0292a9c3380ca6bc",
+        "type": "function",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "Deleta dados do banco",
+        "func": "msg.topic = \"delete  FROM dados;\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 260,
+        "wires": [
+            [
+                "8ab3fe09fce8694b"
+            ]
+        ]
+    },
+    {
+        "id": "dcb2507e78824cf3",
+        "type": "http in",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "",
+        "url": "dados",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 270,
+        "y": 340,
+        "wires": [
+            [
+                "223efc8f453a3ca4"
+            ]
+        ]
+    },
+    {
+        "id": "223efc8f453a3ca4",
+        "type": "function",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "Seleciona dados no banco",
+        "func": "msg.topic = \"SELECT * FROM dados;\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 340,
+        "wires": [
+            [
+                "df0fbecafe31405e"
+            ]
+        ]
+    },
+    {
+        "id": "ec6d885584388999",
+        "type": "http response",
+        "z": "c5ec63d90fc3bf0b",
+        "name": "Resposta",
+        "statusCode": "",
+        "headers": {},
+        "x": 1020,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "df0fbecafe31405e",
+        "type": "sqlite",
+        "z": "c5ec63d90fc3bf0b",
+        "mydb": "2160131fdde9adad",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "Seleciona dados",
+        "x": 810,
+        "y": 340,
+        "wires": [
+            [
+                "ec6d885584388999"
+            ]
+        ]
+    },
+    {
+        "id": "2160131fdde9adad",
+        "type": "sqlitedb",
+        "db": "banco.db",
+        "mode": "RWC"
+    }
+]
